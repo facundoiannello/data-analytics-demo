@@ -1,10 +1,11 @@
 # Bundled Agent Skills
 
-This repository now vendors two third-party skill libraries so they are
+This repository now vendors three third-party skill libraries so they are
 available from the repo itself:
 
 - **Superpowers** from `obra/superpowers`
 - **Impeccable** from `pbakaus/impeccable`
+- **shadcn/ui** from `shadcn/ui`
 
 They are mirrored into two project-local discovery roots:
 
@@ -15,6 +16,7 @@ They are mirrored into two project-local discovery roots:
 
 - `obra/superpowers@7e516434f2a30114300efc9247db32fb37daa5f9`
 - `pbakaus/impeccable@d6b1a56bc5b79e9375be0f8508b4daa1678fb058`
+- `shadcn/ui@31dbc6fc91950430b5d5647bc9a69d428495afb5`
 
 These copies are intentionally checked into git so contributors using this repo
 do not need to install the skillsets globally before they are discoverable.

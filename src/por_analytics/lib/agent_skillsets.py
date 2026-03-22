@@ -41,6 +41,12 @@ DEFAULT_SKILLSET_SPECS = (
         ref="d6b1a56bc5b79e9375be0f8508b4daa1678fb058",
         source_subdir="source/skills",
     ),
+    SkillsetSpec(
+        name="shadcn-ui",
+        repo="https://github.com/shadcn/ui.git",
+        ref="31dbc6fc91950430b5d5647bc9a69d428495afb5",
+        source_subdir="skills",
+    ),
 )
 
 

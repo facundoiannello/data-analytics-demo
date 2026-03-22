@@ -38,6 +38,16 @@ class TestSyncSkillsetsFromCheckouts:
             "impeccable/source/skills/frontend-design/SKILL.md",
             "---\nname: frontend-design\ndescription: test\n---\n",
         )
+        _write_skill(
+            checkouts_root,
+            "shadcn-ui/skills/shadcn/SKILL.md",
+            "---\nname: shadcn\ndescription: test\n---\n",
+        )
+        _write_skill(
+            checkouts_root,
+            "shadcn-ui/skills/shadcn/rules/forms.md",
+            "# forms\n",
+        )
 
         specs = (
             SkillsetSpec(
@@ -52,6 +62,12 @@ class TestSyncSkillsetsFromCheckouts:
                 ref="main",
                 source_subdir="source/skills",
             ),
+            SkillsetSpec(
+                name="shadcn-ui",
+                repo="https://github.com/shadcn/ui.git",
+                ref="main",
+                source_subdir="skills",
+            ),
         )
 
         copied_paths = sync_skillsets_from_checkouts(
@@ -59,6 +75,7 @@ class TestSyncSkillsetsFromCheckouts:
             checkouts={
                 "superpowers": checkouts_root / "superpowers",
                 "impeccable": checkouts_root / "impeccable",
+                "shadcn-ui": checkouts_root / "shadcn-ui",
             },
             specs=specs,
         )
@@ -67,6 +84,9 @@ class TestSyncSkillsetsFromCheckouts:
         assert repo_root / ".claude/skills/brainstorming/SKILL.md" in copied_paths
         assert repo_root / ".agents/skills/frontend-design/SKILL.md" in copied_paths
         assert repo_root / ".claude/skills/frontend-design/SKILL.md" in copied_paths
+        assert repo_root / ".agents/skills/shadcn/SKILL.md" in copied_paths
+        assert repo_root / ".claude/skills/shadcn/SKILL.md" in copied_paths
+        assert repo_root / ".agents/skills/shadcn/rules/forms.md" in copied_paths
 
         assert (repo_root / ".agents/skills/brainstorming/SKILL.md").read_text().startswith(
             "---\nname: brainstorming"
@@ -74,6 +94,10 @@ class TestSyncSkillsetsFromCheckouts:
         assert (repo_root / ".claude/skills/frontend-design/SKILL.md").read_text().startswith(
             "---\nname: frontend-design"
         )
+        assert (repo_root / ".claude/skills/shadcn/SKILL.md").read_text().startswith(
+            "---\nname: shadcn"
+        )
+        assert (repo_root / ".agents/skills/shadcn/rules/forms.md").read_text() == "# forms\n"
 
     def test_replaces_stale_skill_directory(self, tmp_path: Path) -> None:
         repo_root = tmp_path / "repo"
